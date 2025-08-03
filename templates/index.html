@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3x3 Matrix Calculator</title>
+    <style>
+        body { font-family: Arial; text-align: center; padding: 20px;}
+        table { margin: 0 auto; border: 4px solid black; }
+        
+        input[type="number"] { width: 80px; padding: 10px; margin: 3px; text-align: center; }
+        button { padding: 10px 15px; margin: 10px; }
+        button:hover { background-color: #1e15c4;color: white; font-weight: bold; }
+        .output { margin-top: 20px; font-size: 18px; color: blue; }
+        .error { color: red; font-weight: bold; }
+        td:hover { background-color: #2a3588; cursor: pointer; color: white; font-weight: bold;}
+    </style>
+</head>
+<body>
+    <h2>3×3 Matrix Calculator</h2>
+    <form method="POST">
+        <table>
+            {% for i in range(3) %}
+            <tr>
+                {% for j in range(3) %}
+                <td><input type="number" name="val{{ i*3 + j }}" required></td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <button name="action" value="determinant">Determinant</button>
+        <button name="action" value="adjoint">Adjoint</button>
+        <button name="action" value="variable">Variable (Det1 / Det2)</button>
+    </form>
+
+    {% if result %}
+    <div class="output">{{ result }}</div>
+    {% endif %}
+
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
+
+    {% if adjoint %}
+    <h3>Adjoint Matrix:</h3>
+    <table style="width: 150px; height: 150px;">
+        {% for row in adjoint %}
+        <tr>
+            {% for val in row %}
+            <td style="border: 2px solid black;">{{ val }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
